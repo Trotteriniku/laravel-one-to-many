@@ -34,14 +34,36 @@
                 @enderror
             </div>
 
+
             <div class="mb-3">
-                <label for="preview">Preview</label>
-                <input type="file" class="form-control @error('preview') is-invalid @enderror" name="preview"
-                    id="preview" value="{{ old('preview') }}">
-                @error('preview')
+                <label for="link">Type</label>
+                <select class="form-control @error('type_id') is-invalid @enderror" name="type_id" id="type_id">
+                    @foreach ($types as $type)
+                        <option
+                            value="{{ $type->id }} {{ old('type_id', $type->type_id) == 'type_id' ? 'selected' : '' }}">
+                            {{ $type->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('link')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="d-flex gap-3 ">
+                <div class="mb-3">
+                    <label for="preview">Preview</label>
+                    <input type="file" class="form-control @error('preview') is-invalid @enderror" name="preview"
+                        id="preview" value="{{ old('preview') }}">
+                    @error('preview')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200" alt="">
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-success">Save</button>
             <button type="reset" class="btn btn-primary">Reset</button>
 
